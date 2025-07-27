@@ -17,8 +17,9 @@ pipeline {
     stage('Build Docker Image') {
       steps {
         script {
-          GIT_COMMIT_ID = sh(script: "git rev-parse --short HEAD", returnStdout: true).trim()
-          IMAGE_TAG = "${IMAGE_NAME}:${GIT_COMMIT_ID}"
+          def GIT_COMMIT_ID = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+          def IMAGE_TAG = "my-app:${GIT_COMMIT_ID}"
+
           echo "🔨 构建镜像: ${IMAGE_TAG}"
           sh "docker build -t ${IMAGE_TAG} ."
         }
